@@ -98,3 +98,9 @@ SELECT name, COUNT(*) AS frequency FROM FastFoodRestaurants$ GROUP BY name ORDER
 SELECT province, name, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province, name ORDER BY province ASC, name ASC, "count" DESC;
 
 SELECT province, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province ORDER BY "count" DESC;
+
+SELECT TOP 10 * FROM FastFoodRestaurants$;
+
+SELECT name, city, province, country, latitude, longitude FROM FastFoodRestaurants$;
+
+SELECT COUNT(*) FROM FastFoodRestaurants$ WHERE name LIKE '%Dunkin%' GROUP BY name;
