@@ -1,15 +1,11 @@
--- See the layout of the dataset and the data available
-SELECT TOP 3 * FROM FastFoodRestaurants$;
+-- Name: John Cervantes
+-- Datasets used: 
+-- https://www.kaggle.com/datasets/rishidamarla/fast-food-restaurants-in-america
+-- https://www.kaggle.com/datasets/iamsouravbanerjee/top-50-fastfood-chains-in-usa
 
-SELECT name, COUNT(*) AS frequency FROM FastFoodRestaurants$ GROUP BY name ORDER BY frequency DESC;
-
-SELECT province, name, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province, name ORDER BY province ASC, name ASC, "count" DESC;
-
-SELECT province, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province ORDER BY "count" DESC;
-
--- Perform data cleaning to make sure that the naming of restaurants of focus
--- that will be used with the Kaggle dataset: https://www.kaggle.com/datasets/iamsouravbanerjee/top-50-fastfood-chains-in-usa
--- are similar so that the data follows the same format
+-- Perform data cleaning to make sure that the naming of restaurants based on the
+-- dataset: https://www.kaggle.com/datasets/iamsouravbanerjee/top-50-fastfood-chains-in-usa
+-- follow the same format between both datasets used to be able to make a single naming scheme for restaurants
 
 SELECT DISTINCT(name) FROM FastFoodRestaurants$ WHERE name LIKE '%c%onald%';
 UPDATE FastFoodRestaurants$ SET name = 'McDonald''s' WHERE name LIKE '%c%onald%';
@@ -90,17 +86,19 @@ SELECT DISTINCT(name) FROM FastFoodRestaurants$ WHERE name LIKE '%Wendy%';
 -- Perform a search to confirm that the entry with the name 'Wendy Two Two Eight' is a Wendy's
 -- after performing the query, it is a Wendy's
 SELECT * FROM FastFoodRestaurants$ WHERE name = 'Wendy Two Two Eight';
-
 UPDATE FastFoodRestaurants$ SET name = 'Wendy''s' WHERE name LIKE '%Wendy%';
 
-SELECT name, COUNT(*) AS frequency FROM FastFoodRestaurants$ GROUP BY name ORDER BY frequency DESC;
-
-SELECT province, name, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province, name ORDER BY province ASC, name ASC, "count" DESC;
-
-SELECT province, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province ORDER BY "count" DESC;
-
+-- See the layout of the dataset and the data available
 SELECT TOP 10 * FROM FastFoodRestaurants$;
 
-SELECT name, city, province, country, latitude, longitude FROM FastFoodRestaurants$;
+-- See the name of the companies in the dataset alongside their frequency ordered in descending order
+SELECT name, COUNT(*) AS frequency FROM FastFoodRestaurants$ GROUP BY name ORDER BY frequency DESC;
+ 
+-- Ordering by province (state) and name of restaurant, get the frequency of each occurrence to see the frequency of each restaurant per state
+SELECT province, name, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province, name ORDER BY province ASC, name ASC, "count" DESC;
 
-SELECT COUNT(*) FROM FastFoodRestaurants$ WHERE name LIKE '%Dunkin%' GROUP BY name;
+-- Get the number of total restaurants in each province (state)
+SELECT province, COUNT(*) as "count" FROM FastFoodRestaurants$ GROUP BY province ORDER BY "count" DESC;
+
+-- For use in Tableau visualization, I will get the restaurant name, city, state, country, latitude, and longitude to visualize the distribution of restaurants on a map plot
+SELECT name, city, province, country, latitude, longitude FROM FastFoodRestaurants$;
